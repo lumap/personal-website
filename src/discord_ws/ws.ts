@@ -125,7 +125,6 @@ export function startWS(c: DiscordClient) {
     socket.onclose = function (e) {
         const reconnectAllowedCodes = [4000, 4001, 4002, 4003, 4005, 4007, 4008, 4009, 4069];
         reconnect.can = reconnectAllowedCodes.includes(e.code);
-        logMessage(`Socket closed. Code:${e.code}. Reason: ${e.reason || "No reason provided"}. Can reconnect? ${reconnect.can ? "Yes" : "No"}`, "dws");
         startWS(c);
     };
 }
