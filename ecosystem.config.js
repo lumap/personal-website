@@ -1,7 +1,7 @@
 module.exports = {
     apps: [
         {
-            name: "lumapdotfr",
+            name: "lumap/personal-website",
             script: "bun run build && bun run start"
         }
     ]
