@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" width="340px" height="<%= h %>px">
+    <foreignObject x="0" y="0" width="340" height="<%= h %>">
+        <div class="presence-main-container">
+            <% if (!user.banner) { %>
+            <div class="banner-nonNitro" style="background-color:<%= "#"+user.accent_color.toString(16).padStart(6, '0') %>;"></div>
+            <div class="avatar-nonNitro">
+                <div class="avatarBackground">
+                    <img class="avatarImg" src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%=user.avatar%>.png?size=512" alt="An avatar">
+                </div>
+                <% if (clientStatus !==null) { %>
+                <div class="status">
+                    <img src="https://cdn.lumap.fr/status/<%= clientStatus %>.svg" alt=<%= clientStatus %> />
+                </div>
+                <% } %>
+            </div>
+            <% } else { %>
+            <img style="border-radius: 8px 8px 0 0; height:120px;" src="https://cdn.discordapp.com/banners/<%= user.id %>/<%=user.banner%>.png?size=1024" alt="A banner">
+            <div class="avatar">
+                <div class="avatarBackground">
+                    <img class="avatarImg" src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%=user.avatar%>.png?size=512" alt="An avatar">
+                </div>
+                <% if (clientStatus !==null) { %>
+                <div class="status">
+                    <img src="https://cdn.lumap.fr/status/<%= clientStatus %>.svg" alt=<%= clientStatus %> />
+                </div>
+                <% } %>
+            </div>
+            <% } %>
+            <div class="badges">
+                <% userBadges.forEach(badge => { %>
+                <img class="badgeImage" width="22" height="22" src="<%= badge.url %>" alt="<%= badge.name %>" title="<%= badge.name %>">
+                <% }) %>
+                <% if (user.banner) { %>
+                <img class=" badgeImage" width="22" height="22" src="https://cdn.discordapp.com/badge-icons/2ba85e8026a8614b640c2837bcdfe21b.png" alt="Nitro Subscriber" title="Nitro Subscriber">
+                <% } %>
+            </div>
+            <div class="userDetails">
+                <div class="usernames">
+                    <h1 class="displayName">
+                        <%= user.global_name===null ? user.username : user.global_name %>
+                    </h1>
+                    <span class="username">
+                        <%= user.username %>
+                    </span>
+                </div>
+                <% if (customStatus != null) { %>
+                <div class="customStatus">
+                    <%= customStatus.state %>
+                </div>
+                <% } %>
+                <div class="divider"></div>
+                <div class="section">
+                    <h2 class="sectionTitle">Discord Member Since</h2>
+                    <div class="sectionContent">
+                        <%= formattedJoinDate %>
+                    </div>
+                </div>
+                <% customActivities.forEach(customActivity => { %>
+                <div class="section">
+                    <h2 class="sectionTitle"><%= ActivityType[customActivity.type] %> <%= customActivity.name %></h2>
+                    <div class="sectionContent activityBody">
+                        <img src="https://cdn.discordapp.com/app-assets/<%=customActivity.application_id%>/<%=customActivity.assets.large_image%>" width="60px" height="60px">
+                        <div class="activityDetails">
+                            <p><%= customActivity.name %></p>
+                            <p><%= customActivity.details %></p=>
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
+                <div class="section">
+                    <a target="_blank" class="sendFRButton" href="https://discord.com/users/<%=user.id%>"><span>Send
+                            Friend
+                            Request</span></a>
+                </div>
+            </div>
+            <link rel="stylesheet" href="https://cdn.lumap.fr/css/_reset.css">
+            <link rel="stylesheet" href="https://cdn.lumap.fr/css/presence.css">
+        </div>
+    </foreignObject>
+</svg>

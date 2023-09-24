@@ -1,0 +1,164 @@
+:root {
+    --bg-primary: #242428;
+    --bg-secondary: #111214;
+    --divider: #2F2F34;
+}
+
+body {
+    margin: 0;
+}
+
+.presence-main-container {
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    position: relative;
+    background-color: var(--bg-primary);
+}
+
+.presence-main-container * {
+    color: white;
+}
+
+.banner-nonNitro {
+    width: 100%;
+    height: 60px;
+    position: relative;
+    border-radius: 8px 8px 0 0;
+}
+
+.avatar-nonNitro {
+    position: absolute;
+    top: 16px;
+    left: 22px;
+    width: 90px;
+    height: 90px;
+}
+
+
+.avatar {
+    position: absolute;
+    top: 76px;
+    left: 22px;
+    width: 90px;
+    height: 90px;
+}
+
+.avatarBackground {
+    background-color: var(--bg-primary);
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+}
+
+.avatarImg {
+    border-radius: 50%;
+    top: 5px;
+    left: 5px;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.status {
+    position: absolute;
+    top: 60px;
+    left: 60px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: var(--bg-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.badges {
+    position: relative;
+    top: 12px;
+    right: 16px;
+    background-color: var(--bg-secondary);
+    display: flex;
+    justify-content: flex-end;
+    align-self: flex-end;
+    align-items: center;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.badgeImage {
+    padding: 0 1px;
+}
+
+.userDetails {
+    margin: 28px 16px 16px;
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+}
+
+.usernames {
+    padding: 12px 12px 0 12px;
+
+}
+
+.displayName {
+    font-size: 20px;
+    padding: 0;
+}
+
+.customStatus {
+    margin: 12px 12px 12px;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.divider {
+    margin: 12px 12px 0;
+    height: 1px;
+    position: sticky;
+    top: 0;
+    background-color: var(--divider);
+}
+
+.section {
+    margin: 12px;
+}
+
+.sectionTitle {
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.sectionContent {
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.activityBody {
+    display: flex;
+    align-items: center;
+
+    .activityDetails {
+        margin-left: 10px;
+    }
+}
+
+.sendFRButton {
+    width: 100%;
+    display: flex;
+    background-color: #238146;
+    border-radius: 3px;
+    min-height: 32px;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.sendFRButton>span {
+    font-size: 14px;
+}

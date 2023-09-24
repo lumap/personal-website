@@ -1,0 +1,31 @@
+<%- include('../partials/header.ejs') %>
+
+<p>hello! life is a soup. </p>
+<br>
+<div id="dpresence"></div>
+<script>
+    (async () => {
+        const id = '<%= userId %>';
+        const res = await fetch(`https://api.lumap.fr/presence?id=${id}&format=html`).then(r => r.text());
+        document.getElementById("dpresence").innerHTML = res;
+    })();
+</script>
+<br>
+<a href="http://twitter.com/lumapcat">http://twitter.com/lumapcat</a>
+<br>
+<a href="https://github.com/lumap">https://github.com/lumap</a>
+<br>
+<a href="mailto:contact@lumap.fr">mailto:contact@lumap.fr</a>
+<br>
+<a href="https://discord.gg/h4UaJ5JNpj">https://discord.gg/h4UaJ5JNpj</a>
+<br>
+<a href="https://api.lumap.fr/botinvite?id=966271016953327649&perms=51200">https://api.lumap.fr/botinvite?id=966271016953327649&perms=51200</a>
+<br>
+<a href="https://www.youtube.com/@lumap69">https://www.youtube.com/@lumap69</a>
+<br>
+SW-0976-3193-6406
+<br>
+
+<link rel="stylesheet" href="https://cdn.lumap.fr/css/index.css">
+
+<%- include('../partials/footer.ejs') %>
