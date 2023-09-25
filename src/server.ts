@@ -16,7 +16,7 @@ async function handleReq(req: Request) {
     const match = req.url.match(regex);
     // match[0] = req.url
     // match[1] = subdomain or undefined
-    // match[2] = "lumap.fr" or "localhost:8080"
+    // match[2] = domain or "localhost:port"
     // match[3] = which page is being accessed or ''
     if (!match) return new Response(await generateErrorPage(418), {
         status: 418,

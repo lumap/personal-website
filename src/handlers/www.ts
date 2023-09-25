@@ -11,8 +11,9 @@ export async function handleWWW(req: Request, route: string): Promise<Response> 
         }
     };
     switch (route) {
-        case "index": {
-            html = await ejs.renderFile("views/pages/index.ejs", { userId: config.userId });
+        case "index":
+        case "catalan": {
+            html = await ejs.renderFile(`views/pages/${route}.ejs`, { userId: config.userId });
             logHTTPRequest(200, req);
             break;
         }
