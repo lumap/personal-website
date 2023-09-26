@@ -35,11 +35,11 @@ export async function handleWWW(req: Request, route: string, domainName: string)
                 res.statusText = "Page Not Found";
                 return new Response(await generateErrorPage(404, domainName), res);
             };
-            const bodyText = await req.text();
-            if (JSON.parse(bodyText).ref !== 'refs/heads/main') {
+            console.log((await req.json()).ref);
+            if ((await req.json()).ref !== 'refs/heads/main') {
                 return new Response("200");
             }
-            const signature = `sha1=${crypto.createHmac('sha1', config.gitSecret).update(bodyText).digest('hex')}`;
+            const signature = `sha1=${crypto.createHmac('sha1', config.gitSecret).update(await req.text()).digest('hex')}`;
 
             if (crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) {
                 exec('~/personal-website/.git/hooks/post-receive', async (error, stdout, stderr) => {
