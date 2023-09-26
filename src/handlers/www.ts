@@ -35,6 +35,7 @@ export async function handleWWW(req: Request, route: string, domainName: string)
                 res.statusText = "Page Not Found";
                 return new Response(await generateErrorPage(404, domainName), res);
             };
+
             const bodyText = await req.text();
             const signature = `sha1=${crypto.createHmac('sha1', config.gitSecret).update(bodyText).digest('hex')}`;
             if (crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) {
