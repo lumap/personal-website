@@ -37,7 +37,6 @@ export async function handleWWW(req: Request, route: string, domainName: string)
             };
 
             console.log(await req.text());
-
             // const signature = `sha1=${crypto.createHmac('sha1', config.gitSecret).update(await req.text()).digest('hex')}`;
             // if (crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) {
             //     exec('~/personal-website/.git/hooks/post-receive', async (error, stdout, stderr) => {
