@@ -4,5 +4,6 @@ export const config = {
     botToken: "",
     botId: "",
     userId: "",
-    guildId: ""
+    guildId: "",
+    gitSecret: ""
 };
