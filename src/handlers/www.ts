@@ -36,24 +36,26 @@ export async function handleWWW(req: Request, route: string, domainName: string)
                 return new Response(await generateErrorPage(404, domainName), res);
             };
 
-            const signature = `sha1=${crypto.createHmac('sha1', config.gitSecret).update(await req.text()).digest('hex')}`;
-            if (crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) {
-                exec('~/personal-website/.git/hooks/post-receive', async (error, stdout, stderr) => {
-                    if (error) {
-                        console.log(stderr);
-                        logHTTPRequest(500, req);
-                        res.status = 500;
-                        res.statusText = "Error when executing the restart script";
-                        return new Response(await generateErrorPage(500, domainName), res);
-                    }
-                });
-                return new Response("200", res);
-            } else {
-                logHTTPRequest(418, req);
-                res.status = 404184;
-                res.statusText = "Crypto failed";
-                return new Response(await generateErrorPage(418, domainName), res);
-            }
+            console.log(await req.text());
+
+            // const signature = `sha1=${crypto.createHmac('sha1', config.gitSecret).update(await req.text()).digest('hex')}`;
+            // if (crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) {
+            //     exec('~/personal-website/.git/hooks/post-receive', async (error, stdout, stderr) => {
+            //         if (error) {
+            //             console.log(stderr);
+            //             logHTTPRequest(500, req);
+            //             res.status = 500;
+            //             res.statusText = "Error when executing the restart script";
+            //             return new Response(await generateErrorPage(500, domainName), res);
+            //         }
+            //     });
+            //     return new Response("200", res);
+            // } else {
+            //     logHTTPRequest(418, req);
+            //     res.status = 404184;
+            //     res.statusText = "Crypto failed";
+            //     return new Response(await generateErrorPage(418, domainName), res);
+            // }
         }
         default: {
             logHTTPRequest(404, req);
