@@ -35,6 +35,7 @@ export async function handleWWW(req: Request, route: string, domainName: string)
                 res.statusText = "Page Not Found";
                 return new Response(await generateErrorPage(404, domainName), res);
             };
+
             console.log((await req.clone().json()));
             if ((await req.clone().json()).ref !== 'refs/heads/main') {
                 return new Response("200");
