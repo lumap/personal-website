@@ -25,7 +25,7 @@ export async function handleWWW(req: Request, route: string, domainName: string)
                 return new Response(await generateErrorPage(404, domainName), res);
             }
             logHTTPRequest(200, req);
-            return new Response(await ejs.renderFile(`views/pages/index.ejs`, { domainName, userId: config.userId, lang, strings: await getLangStrings(lang, "index") }), res);
+            return new Response(await ejs.renderFile(`views/pages/index.ejs`, { s: domainName.startsWith('localhost') ? '' : 's', domainName, userId: config.userId, lang, strings: await getLangStrings(lang, "index") }), res);
         }
         case "github-webhook": {
             const expectedSignature = req.headers.get('x-hub-signature');

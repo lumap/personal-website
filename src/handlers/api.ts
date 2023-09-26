@@ -69,7 +69,10 @@ export async function handleAPI(req: Request, route: string, domainName: string)
                     const userBadges = badgeList.filter(c => c.value & Number(presence.user.flags));
                     const ActivityType = dtypes.ActivityType;
                     const h = computePresenceCardHeight(presence, userBadges, customActivities);
-                    return new Response(await ejs.renderFile("views/partials/presence.ejs", { domainName, user: presence.user, formattedJoinDate, customActivities, customStatus, clientStatus, userBadges, ActivityType, h, strings: await getLangStrings(lang, "presence") }), {
+                    return new Response(await ejs.renderFile("views/partials/presence.ejs", {
+                        domainName, s: domainName.startsWith('localhost') ? '' : 's',
+                        user: presence.user, formattedJoinDate, customActivities, customStatus, clientStatus, userBadges, ActivityType, h, strings: await getLangStrings(lang, "presence")
+                    }), {
                         headers: {
                             "content-type": "text/html; charset=utf-8",
                             'Access-Control-Allow-Origin': "*"

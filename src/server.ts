@@ -60,5 +60,5 @@ export function startServer() {
         port: config.port,
         fetch: handleReq
     });
-    logMessage("Successfully started on port " + config.port, "server");
+    logMessage(`Successfully started! Access it now at http://${config.domain === "example.com" ? "localhost:" + config.port : config.domain}`, "server");
 }
