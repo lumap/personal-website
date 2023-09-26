@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "bun ./build.ts",
-    "start": "bun ./out/index.js"
+    "start": "bun ./out/index.js",
+    "hot": "bun run --hot ./src/index.ts"
   },
   "keywords": [],
   "author": "",

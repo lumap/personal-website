@@ -7,6 +7,8 @@ import { badgeList } from "../consts/discordBadges";
 import dtypes from "discord-api-types/v10";
 import ejs from "ejs";
 import { Presence } from "../types/Presence";
+import { getLangStrings } from "../utils/getLangStrings";
+import { supportedLanguagesList } from "../consts/supportedLanguagesList";
 
 export async function sendJSON(res: any, req: Request): Promise<Response> {
     logAPIRequest(200, req);
@@ -43,6 +45,10 @@ export async function handleAPI(req: Request, route: string): Promise<Response> 
             case "presence": {
                 const id = getURLQueryParam(req.url, "id");
                 if (!id) return sendJSONError({ status: 401, errorMessage: "Parameter \"id\" is missing" }, req);
+                const lang = getURLQueryParam(req.url, "lang") || "en";
+                if (!supportedLanguagesList.includes(lang)) sendJSONError({
+                    status: 401, errorMessage: "Language not valid"
+                }, req);
                 const presence = await getUserPresence(id);
                 if (presence === "nouser") {
                     return sendJSONError({ status: 401, errorMessage: "User not found" }, req);
@@ -63,7 +69,7 @@ export async function handleAPI(req: Request, route: string): Promise<Response> 
                     const userBadges = badgeList.filter(c => c.value & Number(presence.user.flags));
                     const ActivityType = dtypes.ActivityType;
                     const h = computePresenceCardHeight(presence, userBadges, customActivities);
-                    return new Response(await ejs.renderFile("views/partials/presence.ejs", { user: presence.user, formattedJoinDate, customActivities, customStatus, clientStatus, userBadges, ActivityType, h }), {
+                    return new Response(await ejs.renderFile("views/partials/presence.ejs", { user: presence.user, formattedJoinDate, customActivities, customStatus, clientStatus, userBadges, ActivityType, h, strings: await getLangStrings(lang, "presence") }), {
                         headers: {
                             "content-type": "text/html; charset=utf-8",
                             'Access-Control-Allow-Origin': "*"

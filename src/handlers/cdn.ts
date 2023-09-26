@@ -3,10 +3,10 @@ import { generateErrorPage } from "../server";
 
 export async function handleCDN(_: Request, route: string) {
     try {
-        const fileContent = Bun.file(`${import.meta.dir}/../public/${route}`);
+        const fileContent = Bun.file(`${import.meta.dir}/../../public/${route}`);
         return new Response(fileContent, {
             headers: {
-                "content-type": mime.getType(`${import.meta.dir}/../public/${route}`)!,
+                "content-type": mime.getType(`${import.meta.dir}/../../public/${route}`)!,
                 'Access-Control-Allow-Origin': "*"
             }
         });

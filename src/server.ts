@@ -25,7 +25,7 @@ async function handleReq(req: Request) {
             "content-type": "text/html; charset=utf-8"
         }
     });
-    const pathAccessed = match[3] || "index";
+    const pathAccessed = match[3]?.split("?")[0] || "index";
     if (["favicon.ico", "robots.txt"].includes(pathAccessed)) {
         const fileContent = await Bun.file(`public/${pathAccessed}`).text();
         return new Response(fileContent, {

@@ -1,0 +1,32 @@
+{
+    "en": {
+        "index": {
+            "hi": "hello! life is a soup. i love cats if you couldn't tell.",
+            "too_bored": "I am way too bored to do anything meaningful, so here's a list of websites I use regularly / ways to contact me."
+        },
+        "presence": {
+            "memberSince": "Discord Member Since",
+            "sendFrReq": "Send Friend Request"
+        }
+    },
+    "fr": {
+        "index": {
+            "hi": "salut! la vie est une soupe géante. j'adore les chats si vous n'aviez pas remarqué",
+            "too_bored": "Je m'ennuie beaucoup trop pour faire quoi que ce soit d'intéressant, donc voici une liste des sites web que j'utilise régulièrement / où vous pouvez me contacter"
+        },
+        "presence": {
+            "memberSince": "Membre de Discord depuis le",
+            "sendFrReq": "Envoyer une Demande d'Ami"
+        }
+    },
+    "cat": {
+        "index": {
+            "hi": "hola! la vida és una sopa. m'encanten els gats si no t'havia dit.",
+            "too_bored": "Estic massa avorrit per fer res significatiu, així que aquí tens una llista de llocs web que utilitzo regularment o maneres de contactar amb mi."
+        },
+        "presence": {
+            "memberSince": "Membre de Discord des de",
+            "sendFrReq": "Enviar sol·licitud d'amistat"
+        }
+    }
+}

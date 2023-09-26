@@ -50,7 +50,7 @@
                 <% } %>
                 <div class="divider"></div>
                 <div class="section">
-                    <h2 class="sectionTitle">Discord Member Since</h2>
+                    <h2 class="sectionTitle"><%= strings.memberSince %></h2>
                     <div class="sectionContent">
                         <%= formattedJoinDate %>
                     </div>
@@ -68,9 +68,7 @@
                 </div>
                 <% }) %>
                 <div class="section">
-                    <a target="_blank" class="sendFRButton" href="https://discord.com/users/<%=user.id%>"><span>Send
-                            Friend
-                            Request</span></a>
+                    <a target="_blank" class="sendFRButton" href="https://discord.com/users/<%=user.id%>"><span><%= strings.sendFrReq %></span></a>
                 </div>
             </div>
             <link rel="stylesheet" href="https://cdn.lumap.cat/css/_reset.css">

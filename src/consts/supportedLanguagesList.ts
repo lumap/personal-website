@@ -1,0 +1,1 @@
+export const supportedLanguagesList = ["en", "fr", "cat"];

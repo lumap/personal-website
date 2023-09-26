@@ -1,17 +1,14 @@
 <%- include('../partials/header.ejs') %>
-
-<p>hello! life is a soup. i love cats if you couldn't tell.</p>
+<select id="langs" onchange="changeLanguage();">
+    <option value="en" id="lang-en">English</option>
+    <option value="fr" id="lang-fr">French</option>
+    <option value="cat" id="lang-cat">Catalan</option>
+</select>
+<p><%= strings.hi %></p>
 <br>
 <div id="dpresence"></div>
-<script>
-    (async () => {
-        const id = '<%= userId %>';
-        const res = await fetch(`https://api.lumap.cat/presence?id=${id}&format=html`).then(r => r.text());
-        document.getElementById("dpresence").innerHTML = res;
-    })();
-</script>
 <br>
-<p>I am way too bored to do anything meaningful, so here's a list of websites I use regularly or ways to contact me.</p>
+<p><%= strings.too_bored %>></p>
 <br>
 <a href="http://twitter.com/lumapcat">http://twitter.com/lumapcat</a>
 <br>
@@ -26,9 +23,32 @@
 <a href="https://www.youtube.com/@lumap69">https://www.youtube.com/@lumap69</a>
 <br>
 SW-0976-3193-6406
-<br>
-<a href="catalan">Catalan version (required for TLD)</a>
 
 <link rel="stylesheet" href="https://cdn.lumap.cat/css/index.css">
+
+<script>
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+    const lang = '<%= lang %>';
+    document.getElementById("lang-" + lang)?.setAttribute("selected", "selected");
+
+    (async () => {
+        const id = '<%= userId %>';
+        const res = await fetch(`https://api.lumap.cat/presence?id=${id}&format=html&lang=${lang}`).then(r => r.text());
+        document.getElementById("dpresence").innerHTML = res;
+    })();
+
+    function changeLanguage() {
+        setCookie("language", document.getElementById("langs").value, 365);
+        location.reload();
+    }
+</script>
 
 <%- include('../partials/footer.ejs') %>
