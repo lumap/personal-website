@@ -47,7 +47,7 @@ export async function handleWWW(req: Request, route: string, domainName: string)
                         console.log(stderr);
                         logHTTPRequest(500, req);
                         res.status = 500;
-                        res.statusText = "Error when executing the script";
+                        res.statusText = "Error when executing the restart script";
                         return new Response(await generateErrorPage(500, domainName), res);
                     }
                 });
