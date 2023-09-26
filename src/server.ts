@@ -6,8 +6,8 @@ import { handleCDN } from "./handlers/cdn";
 import { handleWWW } from "./handlers/www";
 import { config } from "../config";
 
-export async function generateErrorPage(statusCode: number): Promise<string> {
-    return await ejs.renderFile("views/pages/error.ejs", { err: statusCode });
+export async function generateErrorPage(statusCode: number, domainName: string): Promise<string> {
+    return await ejs.renderFile("views/pages/error.ejs", { domainName, err: statusCode });
 }
 
 const regex = new RegExp(`https{0,1}:\/\/([a-z]{0,255})?\.?(${config.domain}|localhost:${config.port})\/?(.{0,10000})?`);
@@ -18,7 +18,7 @@ async function handleReq(req: Request) {
     // match[1] = subdomain or undefined
     // match[2] = domain or "localhost:port"
     // match[3] = which page is being accessed or ''
-    if (!match) return new Response(await generateErrorPage(418), {
+    if (!match) return new Response(await generateErrorPage(418, "lumap.cat"), {
         status: 418,
         statusText: "Stop Being Silly",
         headers: {
@@ -41,13 +41,13 @@ async function handleReq(req: Request) {
             return Response.redirect(redirectTo, 302);
         }
         case "cdn": {
-            return handleCDN(req, pathAccessed);
+            return handleCDN(req, pathAccessed, match[2]);
         }
         case "api": {
-            return await handleAPI(req, pathAccessed);
+            return await handleAPI(req, pathAccessed, match[2]);
         }
         case "www": {
-            return await handleWWW(req, pathAccessed);
+            return await handleWWW(req, pathAccessed, match[2]);
         }
         default: {
             return new Response();

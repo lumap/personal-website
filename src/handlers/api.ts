@@ -39,7 +39,7 @@ function computePresenceCardHeight(p: Presence, userBadges: { value: number; nam
     return base;
 }
 
-export async function handleAPI(req: Request, route: string): Promise<Response> {
+export async function handleAPI(req: Request, route: string, domainName: string): Promise<Response> {
     try {
         switch (route.split("/")[0].split("?")[0]) {
             case "presence": {
@@ -69,7 +69,7 @@ export async function handleAPI(req: Request, route: string): Promise<Response> 
                     const userBadges = badgeList.filter(c => c.value & Number(presence.user.flags));
                     const ActivityType = dtypes.ActivityType;
                     const h = computePresenceCardHeight(presence, userBadges, customActivities);
-                    return new Response(await ejs.renderFile("views/partials/presence.ejs", { user: presence.user, formattedJoinDate, customActivities, customStatus, clientStatus, userBadges, ActivityType, h, strings: await getLangStrings(lang, "presence") }), {
+                    return new Response(await ejs.renderFile("views/partials/presence.ejs", { domainName, user: presence.user, formattedJoinDate, customActivities, customStatus, clientStatus, userBadges, ActivityType, h, strings: await getLangStrings(lang, "presence") }), {
                         headers: {
                             "content-type": "text/html; charset=utf-8",
                             'Access-Control-Allow-Origin': "*"

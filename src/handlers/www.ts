@@ -8,7 +8,7 @@ import { getCookie } from "../utils/serverCookies";
 import crypto from "crypto";
 import { exec } from "child_process";
 
-export async function handleWWW(req: Request, route: string): Promise<Response> {
+export async function handleWWW(req: Request, route: string, domainName: string): Promise<Response> {
     let res: ResponseInit = {
         headers: {
             "content-type": "text/html; charset=utf-8"
@@ -22,10 +22,10 @@ export async function handleWWW(req: Request, route: string): Promise<Response> 
                 logHTTPRequest(404, req);
                 res.status = 404;
                 res.statusText = "Language Not Found";
-                return new Response(await generateErrorPage(404), res);
+                return new Response(await generateErrorPage(404, domainName), res);
             }
             logHTTPRequest(200, req);
-            return new Response(await ejs.renderFile(`views/pages/index.ejs`, { userId: config.userId, lang, strings: await getLangStrings(lang, "index") }), res);
+            return new Response(await ejs.renderFile(`views/pages/index.ejs`, { domainName, userId: config.userId, lang, strings: await getLangStrings(lang, "index") }), res);
         }
         case "github-webhook": {
             const expectedSignature = req.headers.get('x-hub-signature');
@@ -33,9 +33,13 @@ export async function handleWWW(req: Request, route: string): Promise<Response> 
                 logHTTPRequest(404, req);
                 res.status = 404;
                 res.statusText = "Page Not Found";
-                return new Response(await generateErrorPage(404), res);
+                return new Response(await generateErrorPage(404, domainName), res);
             };
-            const signature = `sha1=${crypto.createHmac('sha1', config.gitSecret).update(await req.text()).digest('hex')}`;
+            const bodyText = await req.text();
+            if (JSON.parse(bodyText).ref !== 'refs/heads/main') {
+                return new Response("200");
+            }
+            const signature = `sha1=${crypto.createHmac('sha1', config.gitSecret).update(bodyText).digest('hex')}`;
 
             if (crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) {
                 exec('~/personal-website/.git/hooks/post-receive', async (error, stdout, stderr) => {
@@ -44,7 +48,7 @@ export async function handleWWW(req: Request, route: string): Promise<Response> 
                         logHTTPRequest(500, req);
                         res.status = 500;
                         res.statusText = "Error when executing the script";
-                        return new Response(await generateErrorPage(500), res);
+                        return new Response(await generateErrorPage(500, domainName), res);
                     }
                 });
                 return new Response("200", res);
@@ -52,14 +56,14 @@ export async function handleWWW(req: Request, route: string): Promise<Response> 
                 logHTTPRequest(418, req);
                 res.status = 404184;
                 res.statusText = "Crypto failed";
-                return new Response(await generateErrorPage(418), res);
+                return new Response(await generateErrorPage(418, domainName), res);
             }
         }
         default: {
             logHTTPRequest(404, req);
             res.status = 404;
             res.statusText = "Page Not Found";
-            return new Response(await generateErrorPage(404), res);
+            return new Response(await generateErrorPage(404, domainName), res);
         }
     }
 }
