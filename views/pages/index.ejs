@@ -10,21 +10,21 @@
 <br>
 <p><%= strings.too_bored %>></p>
 <br>
-<a href="http://twitter.com/lumapcat">http://twitter.com/lumapcat</a>
+<a href="http<%=domainName.startsWith('localhost')?'':'s'%>://twitter.com/lumapcat">http://twitter.com/lumapcat</a>
 <br>
-<a href="http://github.com/lumap">http://github.com/lumap</a>
+<a href="http<%=domainName.startsWith('localhost')?'':'s'%>://github.com/lumap">http://github.com/lumap</a>
 <br>
 <a href="mailto:contact@lumap.cat">mailto:contact@lumap.cat</a>
 <br>
-<a href="http://discord.gg/h4UaJ5JNpj">http://discord.gg/h4UaJ5JNpj</a>
+<a href="http<%=domainName.startsWith('localhost')?'':'s'%>://discord.gg/h4UaJ5JNpj">http://discord.gg/h4UaJ5JNpj</a>
 <br>
-<a href="http://api.<%= domainName %>/botinvite?id=966271016953327649&perms=51200">http://api.<%= domainName %>/botinvite?id=966271016953327649&perms=51200</a>
+<a href="http<%=domainName.startsWith('localhost')?'':'s'%>://api.<%= domainName %>/botinvite?id=966271016953327649&perms=51200">http://api.<%= domainName %>/botinvite?id=966271016953327649&perms=51200</a>
 <br>
-<a href="http://www.youtube.com/@lumap69">http://www.youtube.com/@lumap69</a>
+<a href="http<%=domainName.startsWith('localhost')?'':'s'%>://www.youtube.com/@lumap69">http://www.youtube.com/@lumap69</a>
 <br>
 SW-0976-3193-6406
 
-<link rel="stylesheet" href="http://cdn.<%= domainName %>/css/index.css">
+<link rel="stylesheet" href="http<%=domainName.startsWith('localhost')?'':'s'%>://cdn.<%= domainName %>/css/index.css">
 
 <script>
     function setCookie(name, value, days) {
@@ -42,7 +42,7 @@ SW-0976-3193-6406
 
     (async () => {
         const id = '<%= userId %>';
-        const res = await fetch(`http://api.${domainName}/presence?id=${id}&format=html&lang=${lang}`).then(r => r.text());
+        const res = await fetch(`http${domainName.startsWith('localhost') ? '' : 's'}://api.${domainName}/presence?id=${id}&format=html&lang=${lang}`).then(r => r.text());
         document.getElementById("dpresence").innerHTML = res;
     })();
 

@@ -68,11 +68,11 @@
                 </div>
                 <% }) %>
                 <div class="section">
-                    <a target="_blank" class="sendFRButton" href="http://discord.com/users/<%=user.id%>"><span><%= strings.sendFrReq %></span></a>
+                    <a target="_blank" class="sendFRButton" href="http<%=domainName.startsWith('localhost')?'':'s'%>://discord.com/users/<%=user.id%>"><span><%= strings.sendFrReq %></span></a>
                 </div>
             </div>
-            <link rel="stylesheet" href="http://cdn.<%= domainName %>/css/_reset.css">
-            <link rel="stylesheet" href="http://cdn.<%= domainName %>/css/presence.css">
+            <link rel="stylesheet" href="http<%=domainName.startsWith('localhost')?'':'s'%>://cdn.<%= domainName %>/css/_reset.css">
+            <link rel="stylesheet" href="http<%=domainName.startsWith('localhost')?'':'s'%>://cdn.<%= domainName %>/css/presence.css">
         </div>
     </foreignObject>
 </svg>
