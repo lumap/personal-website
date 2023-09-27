@@ -14,10 +14,8 @@
   "dependencies": {
     "@sapphire/snowflake": "^3.5.1",
     "@types/ejs": "^3.1.3",
-    "@types/express": "github:types/express",
-    "@types/mime": "^3.0.1",
-    "@types/mysql": "github:types/mysql",
-    "discord-api-types": "^0.37.56",
+    "@types/mime": "^3.0.2",
+    "discord-api-types": "^0.37.58",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "mime": "^3.0.0",
