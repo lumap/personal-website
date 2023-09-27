@@ -96,6 +96,10 @@ function handleWSMessage(event: GatewayReceivePayload, socket: CustomWS, c: Disc
                         os: "linux",
                         browser: "lumapdotfr-discordws",
                         device: "lumapdotfr-discordws"
+                    },
+                    presence: {
+                        since: null,
+                        status: "offline"
                     }
                 }
             } as GatewaySendPayload, socket);
