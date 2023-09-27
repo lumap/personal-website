@@ -7,7 +7,7 @@ import { handleWWW } from "./handlers/www";
 import { config } from "../config";
 
 export async function generateErrorPage(statusCode: number, domainName: string): Promise<string> {
-    return await ejs.renderFile("views/pages/error.ejs", { domainName, err: statusCode });
+    return await ejs.renderFile("views/pages/error.ejs", { s: domainName.startsWith('localhost') ? '' : 's', domainName, err: statusCode });
 }
 
 const regex = new RegExp(`https{0,1}:\/\/([a-z]{0,255})?\.?(${config.domain}|localhost:${config.port})\/?(.{0,10000})?`);
