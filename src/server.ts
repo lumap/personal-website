@@ -35,15 +35,15 @@ async function handleReq(req: Request) {
         });
     }
     switch (match[1] || "www") {
-        case "pfpsource": {
+        case "p": {
             const redirectTo = "https://girakacheezer.tumblr.com/post/177279041551/niko-hld-crossover-cosplay-commission-for-a-very";
             logRedirect(redirectTo, req);
             return Response.redirect(redirectTo, 302);
         }
-        case "cdn": {
+        case "c": {
             return handleCDN(req, pathAccessed, match[2]);
         }
-        case "api": {
+        case "a": {
             return await handleAPI(req, pathAccessed, match[2]);
         }
         case "www": {
