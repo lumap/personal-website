@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "bun ./build.ts",
+    "build": "bun ./src/build.ts",
     "start": "bun ./out/index.js",
     "hot": "bun run --hot ./src/index.ts"
   },

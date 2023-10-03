@@ -2,7 +2,6 @@ import { DiscordClient } from "../classes/DiscordClient";
 import { baseURL } from "../consts/discordBaseURL";
 import { config } from "../../config";
 import { GatewayDispatchEvents, GatewayOpcodes, GatewayReceivePayload, GatewaySendPayload } from "discord-api-types/v10";
-import { stopPM2Process } from "../utils/stopPM2Process";
 import { logMessage } from "../utils/logger";
 
 const wsObject: { url: string; } = await fetch(`${baseURL}/gateway/bot`, {
@@ -13,7 +12,6 @@ const wsObject: { url: string; } = await fetch(`${baseURL}/gateway/bot`, {
 }).then(res => res.json());
 if (!wsObject.url) {
     console.log(wsObject);
-    stopPM2Process();
 }
 
 const reconnect = {
@@ -120,7 +118,6 @@ export function startWS(c: DiscordClient) {
         if (parsedEvent.s != null) reconnect.seq = parsedEvent.s;
         if (parsedEvent.op === undefined) { // something fucked up
             console.log(parsedEvent);
-            stopPM2Process();
             return;
         }
         handleWSMessage(parsedEvent, socket, c);

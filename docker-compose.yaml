@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  webserver:
+    build: .
+    command: bun run ./src/index.ts
+    volumes:
+      - .:/usr/app/
+      - /usr/app/node_modules
+    ports:
+      - "80:8080"
