@@ -1,55 +1,60 @@
 <%- include('../partials/header.ejs') %>
-<select id="langs" onchange="changeLanguage();">
-    <option value="en" id="lang-en">English</option>
-    <option value="fr" id="lang-fr">French</option>
-    <option value="cat" id="lang-cat">Catalan</option>
-</select>
-<p><%= strings.hi %></p>
-<br>
-<div id="dpresence"></div>
-<br>
-<p><%= strings.too_bored %>></p>
-<br>
-<a href="https://twitter.com/lumapcat">https://twitter.com/lumapcat</a>
-<br>
-<a href="https://github.com/lumap">https://github.com/lumap</a>
-<br>
-<a href="mailto:contact@lumap.cat">mailto:contact@lumap.cat</a>
-<br>
-<a href="https://discord.gg/h4UaJ5JNpj">https://discord.gg/h4UaJ5JNpj</a>
-<br>
-<a href="https://a.<%= domainName %>/botinvite?id=966271016953327649&perms=51200">http<%=s%>://a.<%= domainName %>/botinvite?id=966271016953327649&perms=51200</a>
-<br>
-<a href="https://www.youtube.com/@lumap69">https://www.youtube.com/@lumap69</a>
-<br>
-SW-0976-3193-6406
+    <select id="langs" onchange="changeLanguage();">
+        <option value="en" id="lang-en">English</option>
+        <option value="fr" id="lang-fr">French</option>
+        <option value="cat" id="lang-cat">Catalan</option>
+    </select>
+    <p>
+        <%= strings.hi %>
+    </p>
+    <br>
+    <div id="dpresence"></div>
+    <br>
+    <p>
+        <%= strings.too_bored %>>
+    </p>
+    <br>
+    <a href="https://twitter.com/lumapcat">https://twitter.com/lumapcat</a>
+    <br>
+    <a href="https://github.com/lumap">https://github.com/lumap</a>
+    <br>
+    <a href="mailto:contact@lumap.cat">mailto:contact@lumap.cat</a>
+    <br>
+    <a href="http<%=s%>://d.<%=domainName%>">http<%=s%>://d.<%=domainName%></a>
+    <br>
+    <a href="https://a.<%= domainName %>/botinvite?id=966271016953327649&perms=51200">http<%=s%>://a.<%= domainName %>
+                /botinvite?id=966271016953327649&perms=51200</a>
+    <br>
+    <a href="https://www.youtube.com/@lumap69">https://www.youtube.com/@lumap69</a>
+    <br>
+    SW-0976-3193-6406
 
-<link rel="stylesheet" href="https://c.<%= domainName %>/css/index.css">
+    <link rel="stylesheet" href="https://c.<%= domainName %>/css/index.css">
 
-<script>
-    function setCookie(name, value, days) {
-        var expires = "";
-        if (days) {
-            var date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = "; expires=" + date.toUTCString();
+    <script>
+        function setCookie(name,value,days) {
+            var expires="";
+            if(days) {
+                var date=new Date();
+                date.setTime(date.getTime()+(days*24*60*60*1000));
+                expires="; expires="+date.toUTCString();
+            }
+            document.cookie=name+"="+(value||"")+expires+"; path=/";
         }
-        document.cookie = name + "=" + (value || "") + expires + "; path=/";
-    }
-    const lang = '<%= lang %>';
-    const domainName = '<%= domainName %>';
-    document.getElementById("lang-" + lang)?.setAttribute("selected", "selected");
+        const lang='<%= lang %>';
+        const domainName='<%= domainName %>';
+        document.getElementById("lang-"+lang)?.setAttribute("selected","selected");
 
-    (async () => {
-        const id = '<%= userId %>';
-        const res = await fetch(`http${domainName.startsWith('localhost') ? '' : 's'}://a.${domainName}/presence?id=${id}&format=html&lang=${lang}`).then(r => r.text());
-        document.getElementById("dpresence").innerHTML = res;
-    })();
+        (async () => {
+            const id='<%= userId %>';
+            const res=await fetch(`http${domainName.startsWith('localhost')? '':'s'}://a.${domainName}/presence?id=${id}&format=html&lang=${lang}`).then(r => r.text());
+            document.getElementById("dpresence").innerHTML=res;
+        })();
 
-    function changeLanguage() {
-        setCookie("language", document.getElementById("langs").value, 365);
-        location.reload();
-    }
-</script>
+        function changeLanguage() {
+            setCookie("language",document.getElementById("langs").value,365);
+            location.reload();
+        }
+    </script>
 
-<%- include('../partials/footer.ejs') %>
+    <%- include('../partials/footer.ejs') %>
