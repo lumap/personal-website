@@ -9,9 +9,10 @@ import ejs from "ejs";
 import { Presence } from "../types/Presence";
 import { getLangStrings } from "../utils/getLangStrings";
 import { supportedLanguagesList } from "../consts/supportedLanguagesList";
+import { Server } from "bun";
 
-export async function sendJSON(res: any, req: Request): Promise<Response> {
-    logAPIRequest(200, req);
+export async function sendJSON(res: any, req: Request, server: Server): Promise<Response> {
+    logAPIRequest(200, req, server);
     return new Response(JSON.stringify(res), {
         status: 200,
         headers: {
@@ -20,8 +21,8 @@ export async function sendJSON(res: any, req: Request): Promise<Response> {
     });
 }
 
-export async function sendJSONError(err: APIError, req: Request): Promise<Response> {
-    logAPIRequest(err.status, req);
+export async function sendJSONError(err: APIError, req: Request, server: Server): Promise<Response> {
+    logAPIRequest(err.status, req, server);
     return new Response(JSON.stringify(err), {
         status: err.status,
         headers: {
@@ -39,25 +40,25 @@ function computePresenceCardHeight(p: Presence, userBadges: { value: number; nam
     return base;
 }
 
-export async function handleAPI(req: Request, route: string, domainName: string): Promise<Response> {
+export async function handleAPI(req: Request, route: string, domainName: string, server: Server): Promise<Response> {
     try {
         switch (route.split("/")[0].split("?")[0]) {
             case "presence": {
                 const id = getURLQueryParam(req.url, "id");
-                if (!id) return sendJSONError({ status: 401, errorMessage: "Parameter \"id\" is missing" }, req);
+                if (!id) return sendJSONError({ status: 401, errorMessage: "Parameter \"id\" is missing" }, req, server);
                 const lang = getURLQueryParam(req.url, "lang") || "en";
                 if (!supportedLanguagesList.includes(lang)) sendJSONError({
                     status: 401, errorMessage: "Language not valid"
-                }, req);
+                }, req, server);
                 const presence = await getUserPresence(id);
                 if (presence === "nouser") {
-                    return sendJSONError({ status: 401, errorMessage: "User not found" }, req);
+                    return sendJSONError({ status: 401, errorMessage: "User not found" }, req, server);
                 }
                 if (presence === "usernottracked") {
-                    return sendJSONError({ status: 401, errorMessage: "Hi there! It looks like the bot can't track this user. If you want to use this API to obtain your presence in html (or json), please join https://discord.gg/S5yryjRuse so the bot can see your presence." }, req);
+                    return sendJSONError({ status: 401, errorMessage: "Hi there! It looks like the bot can't track this user. If you want to use this API to obtain your presence in html (or json), please join https://discord.gg/S5yryjRuse so the bot can see your presence." }, req, server);
                 }
                 const format = getURLQueryParam(req.url, "format");
-                if (!format || !["json", "html"].includes(format)) return sendJSONError({ status: 401, errorMessage: "Parameter \"format\" is not in the list: [\"json\",\"html\"]" }, req);
+                if (!format || !["json", "html"].includes(format)) return sendJSONError({ status: 401, errorMessage: "Parameter \"format\" is not in the list: [\"json\",\"html\"]" }, req, server);
                 if (format === "html") {
                     const date = new Date(DiscordSnowflake.timestampFrom(presence.user.id));
                     const formattedJoinDate = date.toLocaleString('en-US', {
@@ -79,22 +80,22 @@ export async function handleAPI(req: Request, route: string, domainName: string)
                         }
                     });
                 }
-                return sendJSON(presence, req);
+                return sendJSON(presence, req, server);
             }
             case "botinvite": {
                 const params = req.url.split("?")[1].split("&");
                 const botId = params.find(c => c.startsWith("id="));
-                if (!botId) return sendJSONError({ status: 401, errorMessage: "Parameter \"id\" is missing" }, req);
+                if (!botId) return sendJSONError({ status: 401, errorMessage: "Parameter \"id\" is missing" }, req, server);
                 const redirectTo = `https://discord.com/api/oauth2/authorize?client_id=${botId.split("=")[1]}&permissions=${params.find(c => c.startsWith("perms=")) || "8"}&scope=applications.commands%20bot`;
-                logRedirect(redirectTo, req);
+                logRedirect(redirectTo, req, server);
                 return Response.redirect(redirectTo, 302);
             }
             default: {
-                return sendJSONError({ status: 404, errorMessage: "where u at" }, req);
+                return sendJSONError({ status: 404, errorMessage: "where u at" }, req, server);
             }
         }
     } catch (e) {
         console.log(e);
-        return sendJSONError({ status: 500, errorMessage: "U fucked up good" }, req);
+        return sendJSONError({ status: 500, errorMessage: "U fucked up good" }, req, server);
     }
 }

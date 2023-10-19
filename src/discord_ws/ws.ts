@@ -2,7 +2,6 @@ import { DiscordClient } from "../classes/DiscordClient";
 import { baseURL } from "../consts/discordBaseURL";
 import { config } from "../../config";
 import { GatewayDispatchEvents, GatewayOpcodes, GatewayReceivePayload, GatewaySendPayload } from "discord-api-types/v10";
-import { logMessage } from "../utils/logger";
 
 const wsObject: { url: string; } = await fetch(`${baseURL}/gateway/bot`, {
     method: "GET",
@@ -38,7 +37,6 @@ function handleWSMessage(event: GatewayReceivePayload, socket: CustomWS, c: Disc
     switch (event.op) {
         case GatewayOpcodes.Dispatch: {
             if (event.t === GatewayDispatchEvents.Ready) {
-                logMessage(`Connected!`, "dws");
                 reconnect.resumeURL = event.d.resume_gateway_url;
                 reconnect.sessionId = event.d.session_id;
             }

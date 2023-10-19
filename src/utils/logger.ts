@@ -1,3 +1,5 @@
+import { Server } from "bun";
+
 const types = {
     "bot": "Bot",
     "server": "Server",
@@ -17,17 +19,17 @@ function logMessage(string: string, type: "server" | "bot" | "redis" | "dws") {
     console.log(`[${types[type]} at ${generateDate()}] - ${string}`);
 }
 
-function logHTTPRequest(status: number, req: Request) {
-    console.log(`[${types["server"]} at ${generateDate()}] - "${req.url}" ${status}`);
+function logHTTPRequest(status: number, req: Request, s: Server) {
+    console.log(`[${types["server"]} at ${generateDate()}] - ${s.requestIP(req)?.address} "${req.url}" ${status}`);
 }
 
-function logRedirect(redirectedTo: string, req: Request) {
-    console.log(`[${types["server"]} at ${generateDate()}] - "${req.url}" --> "${redirectedTo}"`);
+function logRedirect(redirectedTo: string, req: Request, s: Server) {
+    console.log(`[${types["server"]} at ${generateDate()}] - ${s.requestIP(req)?.address} "${req.url}" --> "${redirectedTo}"`);
 }
 
-function logAPIRequest(status: number, req: Request) {
-    if (req.url.includes("localhost:8080/")) return;
-    console.log(`[${types["api"]} at ${generateDate()}] -"${req.url}" ${status}`);
+function logAPIRequest(status: number, req: Request, s: Server) {
+    if (req.url.includes("localhost")) return;
+    console.log(`[${types["api"]} at ${generateDate()}] - ${s.requestIP(req)?.address} "${req.url}" ${status}`);
 }
 
 export { logHTTPRequest, logMessage, logRedirect, logAPIRequest };

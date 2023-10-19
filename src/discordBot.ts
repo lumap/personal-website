@@ -2,6 +2,7 @@ import { DiscordClient } from "./classes/DiscordClient";
 import { intents } from "./consts/intents";
 import { config } from "../config";
 import { Presence } from "./types/Presence";
+import { logMessage } from "./utils/logger";
 
 let c: DiscordClient;
 
@@ -21,4 +22,7 @@ export async function getUserPresence(userId: string): Promise<Presence | "nouse
 
 export function startBot() {
     c = new DiscordClient(config.botToken, intents.Guilds + intents.GuildPresences + intents.GuildMembers);
+    c.once("READY", () => {
+        logMessage("Connected!", "bot");
+    });
 }

@@ -1,7 +1,9 @@
 import mime from "mime";
 import { generateErrorPage } from "../server";
+import { Server } from "bun";
+import { logHTTPRequest } from "../utils/logger";
 
-export async function handleCDN(_: Request, route: string, domainName: string) {
+export async function handleCDN(req: Request, route: string, domainName: string, server: Server) {
     try {
         const fileContent = await Bun.file(`public/${route}`).text();
         return new Response(fileContent, {
@@ -11,6 +13,7 @@ export async function handleCDN(_: Request, route: string, domainName: string) {
             }
         });
     } catch (e) {
+        logHTTPRequest(404, req, server);
         return new Response(await generateErrorPage(404, domainName), {
             status: 404,
             statusText: "Page Not Found",
