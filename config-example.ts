@@ -1,6 +1,6 @@
 export const config = {
-    port: 8080,
-    domain: "lumap.fr",
+    port: 80,
+    domain: "lumap.cat",
     botToken: "",
     botId: "",
     userId: "",
