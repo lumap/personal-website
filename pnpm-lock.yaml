@@ -15,8 +15,8 @@ dependencies:
     specifier: ^3.0.2
     version: 3.0.2
   bun-types:
-    specifier: ^1.0.4
-    version: 1.0.4
+    specifier: ^1.0.7
+    version: 1.0.7
   discord-api-types:
     specifier: ^0.37.60
     version: 0.37.60
@@ -126,8 +126,8 @@ packages:
       balanced-match: 1.0.2
     dev: false
 
-  /bun-types@1.0.4:
-    resolution: {integrity: sha512-MIXp8MXPqzjjDrBs2fNzODFgFB+Mkl/OdTsPjYaefRoBt+Bk8VEJc3S1bbs6pvBi/wCpPf/ZSmzfIyZ5w4gAMg==}
+  /bun-types@1.0.7:
+    resolution: {integrity: sha512-zlIp+SCutbbugs6xDy+3WC3KO3zKySpF/bRfiTk/VJUdKt+WHAzlCtLplS7XglRYDFzhRhlzXMW/R5BHkw+u2Q==}
     dev: false
 
   /bytes@3.1.2:
