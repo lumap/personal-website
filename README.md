@@ -1,3 +1,3 @@
-# lumapdotfr
+# personal-website
 
-Just a silly http server running in bun that powers https://lumap.cat. 🐱
+just another silly website that runs with bun 
