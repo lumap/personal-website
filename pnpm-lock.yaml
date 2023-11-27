@@ -18,8 +18,8 @@ dependencies:
     specifier: ^1.0.4
     version: 1.0.4
   discord-api-types:
-    specifier: ^0.37.60
-    version: 0.37.60
+    specifier: ^0.37.65
+    version: 0.37.65
   ejs:
     specifier: ^3.1.9
     version: 3.1.9
@@ -211,8 +211,8 @@ packages:
     engines: {node: '>= 0.8', npm: 1.2.8000 || >= 1.4.16}
     dev: false
 
-  /discord-api-types@0.37.60:
-    resolution: {integrity: sha512-5BELXTsv7becqVHrD81nZrqT4oEyXXWBwbsO/kwDDu6X3u19VV1tYDB5I5vaVAK+c1chcDeheI9zACBLm41LiQ==}
+  /discord-api-types@0.37.65:
+    resolution: {integrity: sha512-CQHW3Nu04LEHIj1Xps/sfGhTdrowilxnek2tirpLhwvrmgmLr1C6A+4JFLs+0kJMH2IX2QgDyA9GfNehqN+xPQ==}
     dev: false
 
   /ee-first@1.1.1:
