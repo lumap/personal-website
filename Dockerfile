@@ -1,4 +1,4 @@
-FROM oven/bun:1.0.6
+FROM oven/bun:1.0.20
 
 WORKDIR /usr/app
 
@@ -9,4 +9,4 @@ COPY public ./
 COPY views ./
 COPY config.ts ./
 
-RUN bun install 
+RUN bun install
